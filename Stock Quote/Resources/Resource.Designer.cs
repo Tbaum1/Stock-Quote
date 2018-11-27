@@ -3876,6 +3876,9 @@ namespace Stock_Quote
 			// aapt resource value: 0x7f090164
 			public const int Widget_Design_TextInputLayout = 2131296612;
 			
+			// aapt resource value: 0x7f090166
+			public const int spinnerTheme = 2131296614;
+			
 			static Style()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

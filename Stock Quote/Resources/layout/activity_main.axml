@@ -66,6 +66,7 @@
 		android:textStyle="bold"
 		android:textSize="18sp"
 		android:textColor="#fff5f5f5" />
+	
 	<Spinner
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -79,5 +80,5 @@
 		android:backgroundTintMode="screen"
 		app:backgroundTintMode="screen"
 		android:background="#fff5f5f5"
-		android:theme="@style/spinnerTheme"/>
+		android:theme="@style/spinnerTheme"/> 
 </LinearLayout>
