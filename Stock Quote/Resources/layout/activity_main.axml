@@ -45,7 +45,7 @@
 			android:src="@drawable/search1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:id="@+id/imageButton1"
+			android:id="@+id/imgBtnSearch"
 			android:layout_marginTop="30dp" />
 	</LinearLayout>
 	<Button
@@ -65,8 +65,8 @@
 		android:layout_gravity="center_horizontal"
 		android:textStyle="bold"
 		android:textSize="18sp"
-		android:textColor="#fff5f5f5" />
-	
+		android:textColor="#fff5f5f5"
+		android:backgroundTintMode="screen" />	
 	<Spinner
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

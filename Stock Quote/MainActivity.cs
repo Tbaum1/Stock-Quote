@@ -17,9 +17,14 @@ namespace Stock_Quote
         ArrayAdapter adapter;
         ArrayList favorites;
         Button addFavorite;
+        ImageButton search;
         EditText et;
         private ISharedPreferences prefs = Application.Context.GetSharedPreferences("APP_DATA", FileCreationMode.Private);
         int count;
+        string currentStock;
+        Intent stockInfoActivity;
+        
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,11 +32,9 @@ namespace Stock_Quote
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
             
-            
             addFavorite = FindViewById<Button>(Resource.Id.btnAddFavorite);
             sp = FindViewById<Spinner>(Resource.Id.sp);
-            et = FindViewById<EditText>(Resource.Id.editTxtSymbol);
-            ISharedPreferencesEditor editor = prefs.Edit();
+            et = FindViewById<EditText>(Resource.Id.editTxtSymbol);            
             count = prefs.GetInt("count", 0);
             favorites = new ArrayList();
             favorites.Add("Pick One");            
@@ -40,17 +43,24 @@ namespace Stock_Quote
             sp.Adapter = adapter;            
             sp.ItemSelected += Sp_ItemSelected;
             addFavorite.Click += AddFavorite_Click;
-            
-
+            search = FindViewById<ImageButton>(Resource.Id.imgBtnSearch);
+            search.Click += Search_Click;
+            stockInfoActivity = new Intent(this, typeof(StockInfoActivity1));
         }
 
-
+        private void Search_Click(object sender, EventArgs e)
+        {
+            ISharedPreferencesEditor editor = prefs.Edit();
+            currentStock = et.Text.ToUpper();
+            editor.PutString("current", currentStock);
+            editor.Apply();
+            StartActivity(stockInfoActivity);
+        }
 
         private void AddFavorite_Click(object sender, EventArgs e)
         {            
             LoadFavorites();
             string temp;
-            string t;
             temp = et.Text.ToUpper();
             ISharedPreferencesEditor editor = prefs.Edit();
             
@@ -61,8 +71,7 @@ namespace Stock_Quote
             }
             else
             {
-                favorites.Add(temp);                
-                t = Convert.ToString(count);
+                favorites.Add(temp);
                 editor.PutString("symbol" + count, temp);
                 count++;
                 editor.PutInt("count", count);
@@ -87,7 +96,11 @@ namespace Stock_Quote
 
         private void Sp_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            
+            ISharedPreferencesEditor editor = prefs.Edit();
+            currentStock = sp.GetItemAtPosition(e.Position).ToString().ToUpper();
+            editor.PutString("current", currentStock);
+            editor.Apply();
+            StartActivity(stockInfoActivity);
         }
 
         private void LoadFavorites()
@@ -100,5 +113,5 @@ namespace Stock_Quote
                 favorites.Add(prefs.GetString("symbol" + t, " ").ToString());
             }                
         }
-    }
+    }    
 }
